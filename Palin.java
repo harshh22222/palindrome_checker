@@ -1,30 +1,28 @@
-import java.util.*;
-public class Palin{
-    public static void main( String[] args){
-                String str = "A man a plan a canal Panama";
-                str = str.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-                long start = System.nanoTime();
+public class Palin {
+    public static void main(String[] args) {
+        String str = "A man a plan a canal Panama";
+        str = str.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-                Stack<Character> stack = new Stack<>();
-                Queue<Character> queue = new LinkedList<>();
+        long start = System.nanoTime();
 
-                for (char c : str.toCharArray()) {
-                    stack.push(c);
-                    queue.add(c);
-                }
+        Deque<Character> deque = new ArrayDeque<>();
+        for (char c : str.toCharArray())
+            deque.addLast(c);
 
-                boolean isPalindrome = true;
-                while (!stack.isEmpty()) {
-                    if (!stack.pop().equals(queue.remove())) {
-                        isPalindrome = false;
-                        break;
-                    }
-                }
-
-                long end = System.nanoTime();
-
-                System.out.println("Queue + Stack Method: " + isPalindrome);
-                System.out.println("Time: " + (end - start) + " ns");
+        boolean isPalindrome = true;
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
+                isPalindrome = false;
+                break;
             }
         }
+
+        long end = System.nanoTime();
+
+        System.out.println("Deque Method: " + isPalindrome);
+        System.out.println("Time: " + (end - start) + " ns");
+    }
+}
