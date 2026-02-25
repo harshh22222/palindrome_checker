@@ -3,24 +3,24 @@ public class Palin{
     public static void main( String[] args){
                 String str = "A man a plan a canal Panama";
                 str = str.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-                char[] arr = str.toCharArray();
 
                 long start = System.nanoTime();
 
-                boolean isPalindrome = true;
-                int left = 0, right = arr.length - 1;
+                Stack<Character> stack = new Stack<>();
+                for (char c : str.toCharArray())
+                    stack.push(c);
 
-                while (left < right) {
-                    if (arr[left] != arr[right]) {
+                boolean isPalindrome = true;
+                for (char c : str.toCharArray()) {
+                    if (c != stack.pop()) {
                         isPalindrome = false;
                         break;
                     }
-                    left++;
-                    right--;
                 }
 
                 long end = System.nanoTime();
 
-                System.out.println("Char Array Method: " + isPalindrome);
+                System.out.println("Stack Method: " + isPalindrome);
                 System.out.println("Time: " + (end - start) + " ns");
+
 }}
