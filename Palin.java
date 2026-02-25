@@ -7,12 +7,16 @@ public class Palin{
                 long start = System.nanoTime();
 
                 Stack<Character> stack = new Stack<>();
-                for (char c : str.toCharArray())
+                Queue<Character> queue = new LinkedList<>();
+
+                for (char c : str.toCharArray()) {
                     stack.push(c);
+                    queue.add(c);
+                }
 
                 boolean isPalindrome = true;
-                for (char c : str.toCharArray()) {
-                    if (c != stack.pop()) {
+                while (!stack.isEmpty()) {
+                    if (!stack.pop().equals(queue.remove())) {
                         isPalindrome = false;
                         break;
                     }
@@ -20,7 +24,7 @@ public class Palin{
 
                 long end = System.nanoTime();
 
-                System.out.println("Stack Method: " + isPalindrome);
+                System.out.println("Queue + Stack Method: " + isPalindrome);
                 System.out.println("Time: " + (end - start) + " ns");
-
-}}
+            }
+        }
